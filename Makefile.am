@@ -1,6 +1,9 @@
+DISTCHECK_CONFIGURE_FLAGS = \
+	  	--with-systemdsystemunitdir=$$dc_install_base/$(systemdsystemunitdir)
+
 SUBDIRS = probes libfslabel . resource
 
-EXTRA_DIST = CHANGELOG.txt DEVELOPERS.txt AUTHORS.txt README.txt
+EXTRA_DIST = CHANGELOG.txt DEVELOPERS.txt AUTHORS.txt README.txt LICENSE.txt
 
 bin_PROGRAMS = istatd
 
@@ -20,3 +23,8 @@ istatd_SOURCES = \
 	system.h
 
 istatd_LDADD = probes/libprobes.a libfslabel/libfslabel.a
+
+if HAVE_SYSTEMD
+systemdsystemunit_DATA = \
+			istatd.service
+endif

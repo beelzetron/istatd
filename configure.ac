@@ -16,6 +16,15 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_CHECK_TOOL(AR, ar, false)
 
+PKG_PROG_PKG_CONFIG
+AC_ARG_WITH([systemdsystemunitdir],
+		AS_HELP_STRING([--with-systemdsystemunitdir=DIR], [Directory for systemd service files]),
+		[], [with_systemdsystemunitdir=$($PKG_CONFIG --variable=systemdsystemunitdir systemd)])
+if test "x$with_systemdsystemunitdir" != xno; then
+	AC_SUBST([systemdsystemunitdir], [$with_systemdsystemunitdir])
+fi
+AM_CONDITIONAL(HAVE_SYSTEMD, [test -n "$with_systemdsystemunitdir" -a "x$with_systemdsystemunitdir" != xno ])
+
 AC_MSG_CHECKING([if the compiler supports -Wall])
 oldcppflags="$CPPFLAGS"
 CPPFLAGS="$CPPFLAGS -Wall"
