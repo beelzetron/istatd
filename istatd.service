@@ -1,0 +1,16 @@
+#
+# istat Daemon service unit file
+#
+
+[Unit]
+Description=Daemon serving statistics to your iStat iPhone application
+Documentation=man:istatd(1) 
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/istatd
+Restart=on-abort
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
